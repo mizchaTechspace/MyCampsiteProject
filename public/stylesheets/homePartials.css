@@ -1,0 +1,82 @@
+.navbar {
+    background-color: transparent;
+}
+
+.navbar-brand {
+    font-size: 10px;
+    font-weight: 600;
+    border-bottom: 0.25rem solid transparent;
+}
+
+.navbar-brand:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-nav {
+    color: white;
+    font-weight: 600;
+}
+
+.nav-link {
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    border-bottom: 0.25rem solid transparent;
+}
+
+
+.nav-link:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.cover-container {
+    max-width: 60vw;
+}
+
+.welcome-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    padding: 60px;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px
+}
+
+.welcome-box h3 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+
+.welcome-box p {
+    margin: 0 0 30px;
+    padding: 0;
+    text-align: center;
+}
+
+.welcome-box a {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background: #fff;
+    color: gray;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px;
+    margin: 50px 140px;
+}
+
+.welcome-box a:hover {
+    background-color: rgba(0, 0, 0, .3);
+    color: white;
+}
+
+.footer {
+    margin-top: auto;
+    background-color: transparent;
+}

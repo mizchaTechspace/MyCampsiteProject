@@ -14,25 +14,27 @@ const LocalStrategy = require('passport-local');
 
 
 // *****EXPORTS
-const User = require('./models/user')
-const userRoutes = require('./routes/users')
-const campgroundRoutes = require('./routes/campgrounds')
-const reviewRoutes = require('./routes/reviews')
+const User = require('./models/user');
+const userRoutes = require('./routes/users');
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
+const sessionConfig = require('./sessionConfig');
+const { sessionFlash } = require('./sessionFlash');
+// **Javascripts validate form in public folder
+//  should be first before Error.
+// Order does matter.
 
-// **Javascripts validate form in public folder should be first before Error
-// Order does matter
-
-// *****DB
+// *****DATABASE
 
 const mongoose = require('mongoose');
 
 main().catch((err) => {
-    console.log('CONNECTION ERROR')
+    console.log('CONNECTION ERROR...', err)
 })
 
 async function main() {
     await mongoose.connect('mongodb://localhost:27017/projectOne');
-    await console.log('CONNECTION OPEN');
+    await console.log('DATABASE CONNECTION OPEN...');
 }
 
 // ******
@@ -49,19 +51,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// *****Session
-
-const sessionConfig = {
-    secret: 'thisshouldbeabettersecret!',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
-}
-
 // *****GET
 
 app.use(session(sessionConfig))
@@ -74,29 +63,25 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 
-app.use((req, res, next) => {
-    // console.log(req.session)
-    res.locals.currentUser = req.user;
-    res.locals.success = req.flash('success')
-    res.locals.error = req.flash('error')
-    next()
-})
+app.use(sessionFlash)
+
+// *****ROUTES
+
 app.use('/', userRoutes)
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 
+app.get('/', (req, res) => {
+    res.render('home')
+})
 app.get('/home', (req, res) => {
     res.render('home')
 })
-app.get('/SCkeeper', (req, res) => {
-    res.render('JSreview/SCkeeper');
-})
 
-app.get('/TVshow', (req, res) => {
-    res.render('JSreview/tvShow');
+app.get('/entertainment/scorekeeper', (req, res) => {
+    res.render('entertainment/SCkeeper');
 })
-
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));

@@ -1,0 +1,27 @@
+<% layout('layouts/boilerplate') %>
+    <div>
+        <h1 class="display-4">Score Keeper</h1>
+    </div>
+    <div class="card" style="width: 20rem;">
+        <img src="/images/MatBrown_score(pexels).jpg" class="card-img-top" alt="Photo by Mat Brown from pexels">
+        <div class="card-body">
+            <h2 class="card-title text-center"><span id="p1display">0</span> TO <span id="p2display">0</span>
+            </h2>
+            <button class="btn btn-info text-white" id="p1button">+1 Player One</button>
+            <button class="btn btn-warning text-white" id="p2button">+1 Player Two</button>
+            <div class="mt-2">
+                <button class="btn btn-danger" id="resetbutton"> RESET </button>
+                <select name="" id="playto">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                    <option value="11">11</option>
+                </select>
+            </div>
+            <div>
+                <a href="/home">BACK TO HOME</a>
+            </div>
+        </div>
+    </div>
+    <script src="/javascripts/SCkeeper.js"></script>

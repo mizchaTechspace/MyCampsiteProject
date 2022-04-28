@@ -1,8 +1,15 @@
 <% layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="col-1">
 
-    <h1>All Campgrounds</h1>
-    <div>
-        <a href="/campgrounds/new">ADD NEW HERE</a>
+        </div>
+        <div class="col-8">
+            <h1>All Campgrounds</h1>
+        </div>
+        <div class="col-3">
+            <a class="nav-link btn btn-outline-info text-center rounded-3" href="/campgrounds/new"><i>Add New
+                    Camp</i></a>
+        </div>
     </div>
     <ul>
         <% for (let campground of campgrounds){ %>

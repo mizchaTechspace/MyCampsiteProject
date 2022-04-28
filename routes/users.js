@@ -29,15 +29,16 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
-    req.flash('success', 'welcome back!');
+    req.flash('success', 'Welcome back!');
     const redirectUrl = req.session.returnTo || '/campgrounds';
+    // don't let it sit on the session so it needs to be deleted:
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 })
 
 router.get('/logout', (req, res) => {
     req.logout();
-    req.flash('success', 'Goodbye')
+    req.flash('success', 'Succesfully logged out...')
     res.redirect('/campgrounds')
 })
 

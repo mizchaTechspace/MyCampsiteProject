@@ -1,6 +1,6 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Project One</a>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Miz Cha</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,26 +8,38 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                    <a class="nav-link" href="/campgrounds"><i>Campgrounds</i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/SCkeeper">SCORE KEEPER</a>
+                    <a class="nav-link" href="/campgrounds/new"><i>+NewCamp</i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/TVshow">TV SHOW</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/campgrounds"> CAMPGROUNDS</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false"><i>Activities</i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">
+                                Sports & Fun</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/entertainment/scorekeeper">Score keeper</i></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">
+                                Search Events</a></li>
+                    </ul>
                 </li>
             </ul>
-            <div class="navbar-nav ml-auto">
-                <% if(!currentUser) {%>
-                    <a class="nav-link" href="/login">Login</a>
-                    <a class="nav-link" href="/register">Register</a>
-                    <% } else {%>
-                        <a class="nav-link" href="/logout">Logout</a>
-                        <% } %>
-            </div>
         </div>
+        <div class="navbar-nav ml-auto">
+            <% if(!currentUser) {%>
+                <a class="nav-link text-muted" href="/login">Login</a>
+                <a class="nav-link text-muted" href="/register">Register</a>
+                <% } else {%>
+                    <a class="nav-link text-muted" href="/logout">Logout</a>
+                    <% } %>
+        </div>
+    </div>
     </div>
 </nav>
