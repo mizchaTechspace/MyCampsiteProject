@@ -1,9 +1,9 @@
 .navbar {
-    background-color: transparent;
+    background: linear-gradient(353deg, #fff 0%, #000000 100%);
 }
 
 .navbar-brand {
-    font-size: 10px;
+    font-size: 20px;
     font-weight: 600;
     border-bottom: 0.25rem solid transparent;
 }
@@ -24,12 +24,14 @@
     border-bottom: 0.25rem solid transparent;
 }
 
-
 .nav-link:hover {
     border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
 .footer {
-    margin-top: auto;
-    background-color: transparent;
+    background: linear-gradient(53deg, #fff 0%, #000000 100%);
+}
+
+.footer span {
+    color: #fff;
 }

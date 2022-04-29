@@ -10,16 +10,12 @@ body {
     background-position: center;
 }
 
-.cover-container {
-    max-width: 60vw;
-}
-
 .box {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 600px;
-    padding: 60px;
+    padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, .5);
     box-sizing: border-box;
@@ -27,16 +23,10 @@ body {
     border-radius: 10px
 }
 
-.box h3 {
+.box h1 {
     margin: 0 0 30px;
     padding: 0;
     color: #fff;
-    text-align: center;
-}
-
-.box p {
-    margin: 0 0 30px;
-    padding: 0;
     text-align: center;
 }
 
@@ -46,13 +36,22 @@ body {
     background: #fff;
     color: gray;
     text-decoration: none;
-    font-size: 20px;
-    font-weight: 600;
-    padding: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px;
     margin: 50px 140px;
+    position: relative;
+    top: 0;
+    left: 140px;
+
 }
 
 .box a:hover {
     background-color: rgba(0, 0, 0, .3);
     color: white;
+}
+
+.box label {
+    color: white;
+    font-size: 25px;
 }
