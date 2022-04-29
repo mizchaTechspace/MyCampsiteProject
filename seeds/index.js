@@ -23,18 +23,20 @@ const seedsDB = async () => {
             author: '623ab8fef8523f9839bd95e9',
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            geometry: {
-                type: "Point",
-                coordinates: [-113.1331, 47.0202]
-            },
+            description: 'Camping is a fun recreational activity that allows you to enjoy the outdoors,usually amidst all that Mother Nature has to offer. People go camping in a forest, national park, in the woods, near a river or lake, and can stay there for one or more nights. There are private campgrounds as well that are privately owned by people who encourage campers to come and enjoy the nature with them. Camping trips can be fun when organized properly.',
+            price,
             images: [
                 {
-                    url: 'https://res.cloudinary.com/mizcha12/image/upload/v1649839413/ProjectOne/tr63rpf55h2cmkqngxyf.jpg',
-                    filename: 'ProjectOne/tr63rpf55h2cmkqngxyf'
+                    url: 'https://res.cloudinary.com/mizcha12/image/upload/v1651134047/ProjectOne/j6nuvue9c8yrc8pdeiqz.jpg',
+                    filename: 'ProjectOne/j6nuvue9c8yrc8pdeiqz'
                 }
             ],
-            description: 'Camping is a fun recreational activity that allows you to enjoy the outdoors,usually amidst all that Mother Nature has to offer. People go camping in a forest, national park, in the woods, near a river or lake, and can stay there for one or more nights. There are private campgrounds as well that are privately owned by people who encourage campers to come and enjoy the nature with them. Camping trips can be fun when organized properly.',
-            price
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude]
+            }
         })
 
         await camp.save();

@@ -3,6 +3,17 @@ const { campgroundSchema, reviewSchema } = require('./SchemaValidate')
 const Campground = require('./models/campground');
 const Review = require('./models/review')
 
+module.exports.isLoggedIn = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        // if this is true, use returnTo behavior to store the requested url
+        req.session.returnTo = req.originalUrl
+        req.flash('warning', 'You must be signed in first!')
+        return res.redirect('/login')
+        // Must return this or otherwise the code below will still run
+    }
+    next();
+}
+
 module.exports.validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body)
     if (error) {
@@ -21,17 +32,6 @@ module.exports.validateReview = (req, res, next) => {
     } else {
         next()
     }
-}
-
-module.exports.isLoggedIn = (req, res, next) => {
-    if (!req.isAuthenticated()) {
-        // if this is true, use returnTo behavior to store the requested url
-        req.session.returnTo = req.originalUrl
-        req.flash('warning', 'You must be signed in first!')
-        return res.redirect('/login')
-        // Must return this or otherwise the code below will still run
-    }
-    next();
 }
 
 module.exports.isAuthor = async (req, res, next) => {
