@@ -13,17 +13,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet')
+const MongoStore = require('connect-mongo');
+const dbUrl = 'mongodb://localhost:27017/projectOne'
+// process.env.DB_URL
 
-// *****EXPORTS
-const User = require('./models/user');
-const userRoutes = require('./routes/users');
-const campgroundRoutes = require('./routes/campgrounds');
-const reviewRoutes = require('./routes/reviews');
-const sessionConfig = require('./sessionConfig');
-const { sessionFlash } = require('./sessionFlash');
-// **Javascripts validate form in public folder
-//  should be first before Error.
-// Order does matter.
+// 'mongodb://localhost:27017/projectOne'
 
 // *****DATABASE
 
@@ -34,11 +28,23 @@ main().catch((err) => {
 })
 
 async function main() {
-    await mongoose.connect('mongodb://localhost:27017/projectOne');
+    await mongoose.connect(dbUrl);
     await console.log('DATABASE CONNECTION OPEN...');
 }
 
-// ******
+
+// *****EXPORTS
+const User = require('./models/user');
+const userRoutes = require('./routes/users');
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
+// **Javascripts validate form in public folder
+//  should be first before Error.
+// Order does matter.
+
+
+// ******APP
 
 const app = express();
 // *****SET
@@ -53,12 +59,36 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
-// *****GET
+// *****MongoStore
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    ttl: 7 * 24 * 60 * 60,
+    // = 7 days. Default
+    crypto: {
+        secret,
+    }
+})
 
-app.use(session(sessionConfig))
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR:", e)
+})
+const sessionConfig = {
+    store,
+    name: 'session',
+    secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+// *****Session
+app.use(session({ sessionConfig }))
 app.use(flash())
 
-// app.use(helmet({ crossOriginEmbeddedPolicy: false }))
+// ******SECURITY
 
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com",
@@ -83,6 +113,9 @@ const connectSrcUrls = [
     "https://res.cloudinary.com/mizcha12/"
 ];
 const fontSrcUrls = [];
+
+// app.use(helmet({ crossOriginEmbeddedPolicy: false }))
+
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -104,6 +137,7 @@ app.use(
     })
 );
 
+// ******PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -111,6 +145,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 
+//******sessionFlash must be under passport
+const { sessionFlash } = require('./sessionFlash');
 app.use(sessionFlash)
 
 // *****ROUTES
@@ -119,6 +155,7 @@ app.use('/', userRoutes)
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes)
 
+// *****GET
 
 app.get('/', (req, res) => {
     res.render('home')
