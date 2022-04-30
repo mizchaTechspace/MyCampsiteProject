@@ -23,7 +23,13 @@
                 </div>
             </div>
             <div class="mb-3">
-                <input type="file" name="image" id="" multiple>
+                <label class="form-label">Add Image(s)</label>
+                <div class="form-file custom-file">
+                    <input type="file" class="form-control custom-file-input" id="image" name="image" multiple
+                        onchange="previewImgs(event)">
+                    <label for="image" class="form-label custom-file-label"></label>
+                </div>
+                <div id="inputFile"></div>
             </div>
             <div>
                 <label class="form-label" for="price">Campground Price</label>
