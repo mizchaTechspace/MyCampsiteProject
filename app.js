@@ -39,9 +39,8 @@ const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
-// **Javascripts validate form in public folder
-//  should be first before Error.
-// Order does matter.
+// **Javascripts validate form in public folder should be first before Error.
+// ***Order does matter.
 
 
 // ******APP
