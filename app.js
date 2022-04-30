@@ -14,10 +14,7 @@ const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet')
 const MongoStore = require('connect-mongo');
-const dbUrl = 'mongodb://localhost:27017/projectOne'
-// process.env.DB_URL
-
-// 'mongodb://localhost:27017/projectOne'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/projectOne'
 
 // *****DATABASE
 
@@ -144,9 +141,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 
-//******sessionFlash must be under passport
-const { sessionFlash } = require('./sessionFlash');
-app.use(sessionFlash)
+//******session flash must be under passport
+app.use((req, res, next) => {
+    // console.log(req.session)
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success')
+    res.locals.error = req.flash('error')
+    res.locals.warning = req.flash('warning')
+    next()
+})
 
 // *****ROUTES
 
