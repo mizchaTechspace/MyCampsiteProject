@@ -11,7 +11,8 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet')
 
 // *****EXPORTS
 const User = require('./models/user');
@@ -50,11 +51,58 @@ app.engine('ejs', ejsMate)
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize());
 
 // *****GET
 
 app.use(session(sessionConfig))
 app.use(flash())
+
+// app.use(helmet({ crossOriginEmbeddedPolicy: false }))
+
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com",
+    "https://api.tiles.mapbox.com",
+    "https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js",
+    "https://kit.fontawesome.com",
+    "https://cdnjs.cloudflare.com",
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
+    "https://res.cloudinary.com/mizcha12/"
+];
+const styleSrcUrls = [
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
+    "https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css",
+    "mapbox://styles/mapbox/streets-v11",
+    "mapbox://styles/mapbox/light-v10",
+    "https://res.cloudinary.com/mizcha12/"
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com",
+    "https://*.tiles.mapbox.com",
+    "https://events.mapbox.com",
+    "https://res.cloudinary.com/mizcha12/"
+];
+const fontSrcUrls = [];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            childSrc: ["blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/mizcha12/",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
