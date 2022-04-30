@@ -3,12 +3,18 @@ const cities = require('./cities');
 const { descriptors, places } = require('./seedHelpers');
 const mongoose = require('mongoose');
 
+if (process.env.NODE_ENVIRONMENT !== "production") {
+    require('dotenv').config()
+}
+
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/projectOne'
+
 main().catch((err) => {
     console.log('CONNECTION ERROR', err)
 })
 
 async function main() {
-    await mongoose.connect('mongodb://localhost:27017/projectOne');
+    await mongoose.connect(dbUrl);
     await console.log('CONNECTION OPEN');
 }
 
