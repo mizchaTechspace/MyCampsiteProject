@@ -81,7 +81,7 @@ const sessionConfig = {
     }
 }
 // *****Session
-app.use(session({ sessionConfig }))
+app.use(session(sessionConfig))
 app.use(flash())
 
 // ******SECURITY
