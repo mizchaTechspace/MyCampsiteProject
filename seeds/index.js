@@ -26,7 +26,7 @@ const seedsDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 10) + 20;
         const camp = new Campground({
-            author: '623ab8fef8523f9839bd95e9',
+            author: '626f4ddbb07327e4bc75f45e',
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             description: 'Camping is a fun recreational activity that allows you to enjoy the outdoors,usually amidst all that Mother Nature has to offer. People go camping in a forest, national park, in the woods, near a river or lake, and can stay there for one or more nights. There are private campgrounds as well that are privately owned by people who encourage campers to come and enjoy the nature with them. Camping trips can be fun when organized properly.',
