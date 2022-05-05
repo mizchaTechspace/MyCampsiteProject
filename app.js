@@ -93,20 +93,20 @@ const scriptSrcUrls = [
     "https://kit.fontawesome.com",
     "https://cdnjs.cloudflare.com",
     "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
-    "https://res.cloudinary.com/mizcha12/"
+    `https://res.cloudinary.com/${process.env.CLOUD_NAME}/`
 ];
 const styleSrcUrls = [
     "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
     "https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css",
     "mapbox://styles/mapbox/streets-v11",
     "mapbox://styles/mapbox/light-v10",
-    "https://res.cloudinary.com/mizcha12/"
+    `https://res.cloudinary.com/${process.env.CLOUD_NAME}/`
 ];
 const connectSrcUrls = [
     "https://api.mapbox.com",
     "https://*.tiles.mapbox.com",
     "https://events.mapbox.com",
-    "https://res.cloudinary.com/mizcha12/"
+    `https://res.cloudinary.com/${process.env.CLOUD_NAME}/`
 ];
 const fontSrcUrls = [];
 
@@ -126,7 +126,7 @@ app.use(
                 "'self'",
                 "blob:",
                 "data:",
-                "https://res.cloudinary.com/mizcha12/",
+                `https://res.cloudinary.com/${process.env.CLOUD_NAME}/`
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },

@@ -33,7 +33,7 @@ const seedsDB = async () => {
             price,
             images: [
                 {
-                    url: 'https://res.cloudinary.com/mizcha12/image/upload/v1651134047/ProjectOne/j6nuvue9c8yrc8pdeiqz.jpg',
+                    url: `https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/v1651134047/ProjectOne/j6nuvue9c8yrc8pdeiqz.jpg`,
                     filename: 'ProjectOne/j6nuvue9c8yrc8pdeiqz'
                 }
             ],
